@@ -9,6 +9,9 @@ module.exports = function(app){
     app.get("/", function (req, res) {
         res.sendFile(path.join(__dirname, "../public/index.html"));
     });
+    app.get("/api/notes", function(req,res){
+        res.json(database)
+    })
     app.get("/api/notes", function (req, res) {
         res.sendFile(path.join(__dirname, "../public/notes.html"));
     });
@@ -23,6 +26,7 @@ module.exports = function(app){
         fs.writeFileSync("db/db.json", JSON.stringify(savedNotes));
 
         res.json(newNote)
+ 
         console.log(newNote)
     })
 
