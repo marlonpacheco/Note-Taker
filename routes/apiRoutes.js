@@ -7,15 +7,9 @@ const fs = require("fs");
 module.exports = function(app){
  
 
-    app.get("/", function (req, res) {
-        res.sendFile(path.join(__dirname, "../public/index.html"));
-    });
     app.get("/api/notes", function(req,res){
         res.json(database)
     })
-    app.get("/api/notes", function (req, res) {
-        res.sendFile(path.join(__dirname, "../public/notes.html"));
-    });
 
     const savedNotes = JSON.parse(fs.readFileSync("db/db.json", "utf-8"))
     app.post("/api/notes", function (req, res){
@@ -41,10 +35,3 @@ module.exports = function(app){
     })
 
 }
-
-
-
-
-// app.post("/api/notes", function (req, res) {
-
-// })
