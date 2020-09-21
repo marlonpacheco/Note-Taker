@@ -2,6 +2,7 @@ const database = require("../db/db.json");
 const path = require("path");
 const uniqid = require('uniqid')
 const fs = require("fs");
+const { table } = require("console");
 
 
 module.exports = function(app){
@@ -9,8 +10,11 @@ module.exports = function(app){
 
     app.get("/api/notes", function(req,res){
         res.json(database)
+        res.sendFile(path.join(__dirname, "../public/notes.html"));
     })
+    // app.get("/api/notes", function (req, res) {
 
+    //   });
     const savedNotes = JSON.parse(fs.readFileSync("db/db.json", "utf-8"))
     app.post("/api/notes", function (req, res){
         let title = req.body.title;
@@ -22,7 +26,8 @@ module.exports = function(app){
 
         res.json(newNote)
  
-        console.log(newNote)
+        console.table(newNote)
+        console.table(savedNotes)
     })
 
     app.delete("/api/notes/:id", function(req,res){
@@ -32,6 +37,7 @@ module.exports = function(app){
         })
         fs.writeFileSync("db/db.json", JSON.stringify(updateNotes));
         res.json({ok: true})
+        console.table(savedNotes)
     })
 
 }
